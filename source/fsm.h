@@ -1,5 +1,6 @@
 #pragma once
 #include "driver/elevio.h"
+#include "queue.h"
 
 typedef enum State
 {

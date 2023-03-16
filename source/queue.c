@@ -102,3 +102,27 @@ int check_current_floor(int floor, int queue[4][3])
         return 0;
     }
 }
+
+int queue_hall_down_empty(int queue[4][3])
+{
+    for (int i = 0; i < 4; i++)
+    {
+        if (queue[i][BUTTON_HALL_DOWN] == 1)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+int queue_hall_up_empty(int queue[4][3])
+{
+    for (int i = 0; i < 4; i++)
+    {
+        if (queue[i][BUTTON_HALL_UP] == 1)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}

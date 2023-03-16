@@ -8,4 +8,5 @@ void update_queue(int queue[4][3]); //also sets lights
 int check_queue_empty(int queue[4][3]);
 void clear_floor(int floor, int queue[4][3]); //turns off buttonlights as well
 int check_current_floor(int floor, int queue[4][3]);
-
+int queue_hall_down_empty(int queue[4][3]);
+int queue_hall_up_empty(int queue[4][3]);

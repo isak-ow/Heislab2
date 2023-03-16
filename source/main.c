@@ -90,15 +90,31 @@ int main()
 
             else if (current_dir == DIRN_UP)
             {
+                if (!requests_above(last_valid_floor,queue))
+                {
+                    current_dir = DIRN_STOP;
+                    elevio_motorDirection(DIRN_STOP);
+                    state = IDLE;
+                    break;
+                }
                 elevio_motorDirection(DIRN_UP);
                 printf("Dirupmov\n");
-                if (elevio_floorSensor() == 3 && queue[3][BUTTON_HALL_DOWN])
+                if ((elevio_floorSensor() == 3 && queue[3][BUTTON_HALL_DOWN]) || (elevio_floorSensor() == 3 && current_dir == DIRN_UP))
                 {
+                    current_dir = DIRN_STOP;
                     state = DEST_REACHED;
                     break;
                 }
                 if (valid_floor())
                 {
+                    /* if (queue_hall_up_empty(queue))
+                    {
+                        if (queue[elevio_floorSensor()][BUTTON_HALL_DOWN] == 1)
+                        {
+                            state = DEST_REACHED;
+                            break;
+                        }
+                    } */
                     if ((queue[elevio_floorSensor()][BUTTON_HALL_UP] == 1) || (queue[elevio_floorSensor()][BUTTON_CAB] == 1))
                     {
                         printf("dirupdest\n");
@@ -111,15 +127,31 @@ int main()
 
             else
             {
+                if (!requests_below(last_valid_floor,queue))
+                {
+                    current_dir = DIRN_STOP;
+                    elevio_motorDirection(DIRN_STOP);
+                    state = IDLE;
+                    break;
+                }
                 elevio_motorDirection(DIRN_DOWN);
                 printf("DIRdownmove\n");
-                if (elevio_floorSensor() == 0 && queue[0][BUTTON_HALL_UP])
+                if ((elevio_floorSensor() == 0 && queue[0][BUTTON_HALL_UP]) || (elevio_floorSensor() == 0 && current_dir == DIRN_DOWN))
                 {
+                    current_dir = DIRN_STOP;
                     state = DEST_REACHED;
                     break;
                 }
                 if (valid_floor())
                 {
+                    /* if (queue_hall_down_empty(queue))
+                    {
+                        if (queue[elevio_floorSensor()][BUTTON_HALL_UP] == 1)
+                        {
+                            state = DEST_REACHED;
+                            break;
+                        }
+                    } */
                     if ((queue[elevio_floorSensor()][BUTTON_HALL_DOWN] == 1) || (queue[elevio_floorSensor()][BUTTON_CAB] == 1))
                     {
                         state = DEST_REACHED;

@@ -1,5 +1,6 @@
 #include "fsm.h"
 #include <unistd.h>
+#include "time.h"
 
 int valid_floor()
 {
@@ -29,7 +30,8 @@ void reset_elevator()
     elevio_doorOpenLamp(0);
 }
 
-void open_door()
+
+void open_door(int queue[4][3])
 {
     elevio_doorOpenLamp(1);
     sleep(3);
@@ -39,3 +41,21 @@ void open_door()
     }
     elevio_doorOpenLamp(0);
 }
+
+
+/*  void open_door(int queue[4][3])
+{
+    elevio_doorOpenLamp(1);
+    clock_t start_t = clock();
+    clock_t end_t = clock() + CLOCKS_PER_SEC*3;
+    while (start_t < end_t)
+    {
+        update_queue(queue);
+        while (elevio_obstruction())
+        {
+            continue;
+        }
+        start_t = clock();
+    }
+    elevio_doorOpenLamp(0);
+}  */
